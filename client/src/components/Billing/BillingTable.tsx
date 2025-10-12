@@ -1,17 +1,27 @@
-
-import { useState } from "react"
 import { Card, CardContent } from "../ui/card"
 import { Table, TableBody, TableHeader, TableRow, TableHead as TH } from "../ui/table"
 import { BillingRow } from "./BillingRow"
 
-export function BillingTable({ onTotalsChange }: { onTotalsChange?: (patients: number, amount: number) => void }) {
-  const [rows, setRows] = useState([
-    { id: 1, name: "", age: "", sex: "", referred: "", test: "", amount: "" },
-  ])
+interface Row {
+  id: number,
+  name: string,
+  age: string,
+  sex: string,
+  referred: string,
+  test: string,
+  amount:string
+}
 
+interface BillingTableProperties {
+  rows: Row[];
+  onRowsChange: (rows: Row[]) => void;
+  onTotalsChange?: (patients: number, amount: number) => void
+}
+
+export function BillingTable({rows, onRowsChange, onTotalsChange}:BillingTableProperties) {
   const handleChange = (id: number, field: string, value: string) => {
     const updated = rows.map((r) => (r.id === id ? { ...r, [field]: value } : r))
-    setRows(updated)
+    onRowsChange(updated)
     if (onTotalsChange) {
       const totalPatients = updated.length
       const totalAmount = updated.reduce((sum, r) => sum + (parseFloat(r.amount) || 0), 0)
@@ -19,18 +29,13 @@ export function BillingTable({ onTotalsChange }: { onTotalsChange?: (patients: n
     }
   }
 
-  const addRow = () => {
-    setRows([
-      ...rows,
-      { id: Date.now(), name: "", age: "", sex: "", referred: "", test: "", amount: "" },
-    ])
+  const removeRow=(id:number)=>{
+    const updated= rows.filter((r)=>r.id!==id)
+    onRowsChange(updated)
   }
 
-  const removeRow = (id: number) => setRows(rows.filter((r) => r.id !== id))
-  const clearAll = () => setRows([])
-
   return (
-    <Card>
+    <Card className="w-full overflow-x-auto">
       <CardContent>
         <Table>
           <TableHeader>
