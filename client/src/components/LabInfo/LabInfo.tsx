@@ -3,7 +3,6 @@ import { Label } from "../ui/label.tsx"
 export function LabInfo() {
   return (
     <div className="space-y-6">
-      <h4 className="text-lg font-semibold">Laboratory Information</h4>
       <div className="grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="lab-name">Laboratory Name:</Label>
         <Input type="text" id="lab-name" placeholder="Enter Laboratory Name" />
