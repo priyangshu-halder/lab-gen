@@ -1,6 +1,6 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../ui/select.tsx";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../ui/select";
 import { TableCell, TableRow } from "../ui/table.tsx";
 
 interface BillingRowProperties {
