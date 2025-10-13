@@ -30,7 +30,10 @@ export function Entry() {
 
     const handleRowsChange = (updatedRows: Row[]) => { setRows(updatedRows) }
     const addRow = () => { setRows([...rows, createNewRow()]) }
-    const clearAll = () => { setRows([]) }
+    const clearAll = () => {
+        setRows([])
+        handleTotalsChange(0, 0)
+    }
 
     const generatePDF = () => { navigate("/pdfgenerator", { state: { rows, data } }); }
 
