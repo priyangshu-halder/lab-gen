@@ -14,6 +14,7 @@ export function LabInfo() {
         <Input
           type="text"
           id="lab-name"
+          name="name"
           placeholder="Enter Laboratory Name"
           onChange={handleChange}
           value={data.name}
@@ -24,6 +25,7 @@ export function LabInfo() {
         <Input
           type="text"
           id="address"
+          name="address"
           placeholder="Enter Address"
           onChange={handleChange}
           value={data.address}
@@ -36,6 +38,7 @@ export function LabInfo() {
           <Input
             type="date"
             id="from-date"
+            name="from-date"
             value={data.fromDate}
             onChange={handleChange}
           />
@@ -45,6 +48,7 @@ export function LabInfo() {
           <Input
             type="date"
             id="to-date"
+            name="to-date"
             value={data.toDate}
             onChange={handleChange}
           />
