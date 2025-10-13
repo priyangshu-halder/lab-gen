@@ -9,7 +9,7 @@ interface Row {
   sex: string,
   referred: string,
   test: string,
-  amount:string
+  amount: string
 }
 
 interface BillingTableProperties {
@@ -18,7 +18,7 @@ interface BillingTableProperties {
   onTotalsChange?: (patients: number, amount: number) => void
 }
 
-export function BillingTable({rows, onRowsChange, onTotalsChange}:BillingTableProperties) {
+export function BillingTable({ rows, onRowsChange, onTotalsChange }: BillingTableProperties) {
   const handleChange = (id: number, field: string, value: string) => {
     const updated = rows.map((r) => (r.id === id ? { ...r, [field]: value } : r))
     onRowsChange(updated)
@@ -29,9 +29,14 @@ export function BillingTable({rows, onRowsChange, onTotalsChange}:BillingTablePr
     }
   }
 
-  const removeRow=(id:number)=>{
-    const updated= rows.filter((r)=>r.id!==id)
+  const removeRow = (id: number) => {
+    const updated = rows.filter((r) => r.id !== id)
     onRowsChange(updated)
+    if (onTotalsChange) {
+      const totalPatients = updated.length
+      const totalAmount = updated.reduce((sum, r) => sum + (parseFloat(r.amount) || 0), 0)
+      onTotalsChange(totalPatients, totalAmount)
+    }
   }
 
   return (
