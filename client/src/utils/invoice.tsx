@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { pdf, Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import type { Row, LabInfo } from "../dataContext/types";
 
@@ -180,7 +181,14 @@ export default function PDFGenerator({
     rows: Row[];
     lab: LabInfo;
 }) {
+    const navigate = useNavigate();
+    const hasDownloaded = useRef(false);
+
     useEffect(() => {
+        // Prevent duplicate downloads
+        if (hasDownloaded.current) return;
+        hasDownloaded.current = true;
+
         const generateAndDownloadPDF = async () => {
             const blob = await pdf(<PDFDocument rows={rows} lab={lab} />).toBlob();
             const url = URL.createObjectURL(blob);
@@ -191,6 +199,10 @@ export default function PDFGenerator({
             link.click();
 
             URL.revokeObjectURL(url);
+
+            setTimeout(() => {
+                navigate("/");
+            }, 500);
         };
 
         generateAndDownloadPDF();
