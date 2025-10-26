@@ -27,9 +27,9 @@ function App() {
           <Route
             path="/"
             element={
-              <div className="p-6 space-y-6">
-                <div className="max-w-2xl">
-                  <h2 className="text-xl font-semibold mb-4">Laboratory Information</h2>
+              <div className="p-2 sm:p-4 md:p-6 space-y-4 sm:space-y-6">
+                <div className="w-full max-w-2xl">
+                  <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-4">Laboratory Information</h2>
                   <LabInfo />
                 </div>
                 <div>
