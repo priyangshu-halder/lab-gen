@@ -1,14 +1,24 @@
-import dotenv from "dotenv"
-import app from "./app.js"
-dotenv.config({
-    path: "./.env",
-})
-const PORT = process.env.PORTNAME || 3001;
+import app from "./app.js";
+import { connectDB } from "./db/connection.js";
+import { validateEnv } from "./validators/envValidator.js";
 
-// Example API endpoint
+const PORT = process.env.PORT || 8001;
 
+// Validate environment variables
+try {
+  validateEnv();
+} catch (err) {
+  console.error("❌ Environment validation failed:", err.message);
+  process.exit(1);
+}
 
-// Serve React build files in production
+// Connect to Database
+connectDB();
 
-
-app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
+// Start Server
+app.listen(PORT, () => {
+  console.log(
+    `✅ Server running on http://localhost:${PORT}`
+  );
+  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+});
